@@ -51,6 +51,18 @@ def get_task(day: int, part: int) -> str:
     return task[part - 1]
 
 
+def get_test_input(day: int, part: int = 1) -> str:
+    task = get_task(day, part)
+    selector = parsel.Selector(task)
+    pre_values = selector.xpath('//pre//text()').getall()
+    pre_longest = max(pre_values, key=len)
+    return pre_longest
+
+
+def get_test_input_lines(day: int, part: int = 1) -> list[str]:
+    return get_test_input(day, part).splitlines()
+
+
 def get_day_status(day: int) -> str:
     url = f'https://adventofcode.com/2023/day/{day}'
     r = httpx.get(url, cookies={'session': get_session()})
