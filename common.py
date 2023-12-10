@@ -51,16 +51,20 @@ def get_task(day: int, part: int) -> str:
     return task[part - 1]
 
 
-def get_test_input(day: int, part: int = 1) -> str:
+def get_test_input(day: int, part: int = 1, pos: int | None = None) -> str:
     task = get_task(day, part)
     selector = parsel.Selector(task)
     pre_values = selector.xpath('//pre//text()').getall()
-    pre_longest = max(pre_values, key=len)
-    return pre_longest
+    max_length = max(len(value) for value in pre_values)
+    threshold = max(20, max_length * 0.6)
+    values = [(len(value), value) for value in pre_values if len(value) >= threshold]
+    if pos is not None:
+        return values[pos - 1][1]
+    return sorted(values, key=lambda x: x[0], reverse=True)[0][1]
 
 
-def get_test_input_lines(day: int, part: int = 1) -> list[str]:
-    return get_test_input(day, part).splitlines()
+def get_test_input_lines(day: int, part: int = 1, pos: int | None = None) -> list[str]:
+    return get_test_input(day, part, pos).splitlines()
 
 
 def get_day_status(day: int) -> str:
