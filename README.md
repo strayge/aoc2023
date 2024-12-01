@@ -1,3 +1,3 @@
-## Advent of Code 2023 writeups
+## Advent of Code writeups
 
 Dirty but works.
