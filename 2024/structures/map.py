@@ -10,6 +10,17 @@ class Map:
         self.show_remap: dict[int | str, int | str] = {-1: '.'}
         self.get_nearest_points = lru_cache(maxsize=None)(self.get_nearest_points)
 
+    @property
+    def width(self) -> int:
+        return self.w
+
+    @property
+    def height(self) -> int:
+        return self.h
+
+    def __getitem__(self, y: int) -> list[int | str]:
+        return self.map[y]
+
     @classmethod
     def from_object(cls, lines: list[str]) -> Self:
         h = len(lines)
