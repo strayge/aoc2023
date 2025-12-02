@@ -1,0 +1,4 @@
+notebook
+parsel
+httpx
+ipynbname
